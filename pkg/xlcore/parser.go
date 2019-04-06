@@ -35,7 +35,7 @@ func parseNum(s string, i int) (XLObj, int) {
 	return v, j
 }
 
-func parseString(s string, i int) (XLString, int) {
+func parseString(s string, i int) (*XLString, int) {
 	n := len(s)
 	j := i
 	for ; j < n; j++ {
@@ -46,7 +46,7 @@ func parseString(s string, i int) (XLString, int) {
 	return NewXLString(s[i+1:j]), j+1
 }
 
-func parseSymbol(s string, i int) (XLSymbol, int) {
+func parseSymbol(s string, i int) (*XLSymbol, int) {
 	n := len(s)
 	j := i
 	for ; j < n; j++ {
@@ -63,6 +63,8 @@ func String2tokens(s string) []XLObj {
 	var l []XLObj
 	i := 0
 	n := len(s)
+	left := NewXLSymbol("(")
+	right := NewXLSymbol(")")
 	for ; i < n; {
 		//fmt.Println(i, s[i:i+1])
 		var x XLObj
@@ -70,10 +72,10 @@ func String2tokens(s string) []XLObj {
 			i++
 			continue
 		} else if s[i] == '(' {
-			x = NewXLSymbol("(")
+			x = left
 			i++
 		} else if s[i] == ')' {
-			x = NewXLSymbol(")")
+			x = right
 			i++
 		} else if '0' <= s[i] && s[i] <= '9' {
 			x, i = parseNum(s, i)
@@ -92,21 +94,21 @@ func list2XLObj(t []XLObj) XLObj {
 	//fmt.Println("l2x", t)
 	n := len(t)
 	var p XLObj
-	p = XLNil{}
+	p = Nil
 	for i:=n-1; i>=0; i-- {
-		p = XLPair{Fst:t[i], Snd:p}
+		p = NewXLPair(t[i], p)
 	}
 	return p
 }
 
 func parseTokens(t []XLObj, i int) (XLObj, int) {
 	if t[i].XLObjType() == DT_Symbol {
-		if t[i].(XLSymbol).Value == "(" {
+		if t[i].(*XLSymbol).Value == "(" {
 			l := make([]XLObj, 0, 7)
 			j := i+1
 			n := len(t)
 			for ; j < n; {
-				if t[j].XLObjType() == DT_Symbol && t[j].(XLSymbol).Value == ")" {
+				if t[j].XLObjType() == DT_Symbol && t[j].(*XLSymbol).Value == ")" {
 					break
 				}
 				var next XLObj

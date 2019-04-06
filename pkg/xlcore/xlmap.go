@@ -1,17 +1,14 @@
 package core
 
-func NewMap() XLMap {
-	return XLMap{Map:make(map[string]XLObj)}
-}
 
-func MapGet(m XLMap, s string) (XLObj, bool) {
+func MapGet(m *XLMap, s string) (XLObj, bool) {
 	if v, ok := m.Map[s]; ok {
 		return v, true
 	} else {
-		return nil, false
+		return Nil, false
 	}
 }
 
-func MapPut(m XLMap, s string, v XLObj) {
+func MapPut(m *XLMap, s string, v XLObj) {
 	m.Map[s] = v
 }
