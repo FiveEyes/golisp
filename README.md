@@ -17,11 +17,31 @@ It's just a small imterpreter now, no marco, no coroution, and on goroution.
 
 ## Updates
 
-When I try to implement the lazy operator, I realize that I misunderstand interfaces in Golang. When we do call by value via an interface type, the interface instance contains a pointer to the value, but the value is still copied from original one. 
+Operator lazy is added, but I need to think deeper about which way it works better.
 
-Therefore, I have to rewrite the whole system to implement the lazy operator... It's good news when the project is still small...
+Now, the lambda function works more like C functions:
+```
+int x = 5;
 
-Now, the interpreter is working in Haskell style. No real variables: the binding is fixed.
+int f(int y) {
+  return x + y;
+}
+
+f(5); // 10
+
+x = 10;
+
+f(10); // 15
+```
+
+```
+(define x 5)
+(define f (lambda (x y) (+ x y)))
+(f 5) -- 10
+(define x 10)
+(f 5) -- 15
+```
+On the other hand, if we stop user redefine variables, then its behavior will looks like Haskell.
 
 ## Todo list
   * operator lazy
