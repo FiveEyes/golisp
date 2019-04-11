@@ -62,47 +62,47 @@ func main() {
 	*/
 	
 	
-	evalString("(define x 1.5)", env)
+	evalString("(def x 1.5)", env)
 	evalString("x", env)
-	evalString("(lambda (y) (+ x y))", env)
-	evalString("((lambda (y) (+ x y)) 1)", env)
-	evalString("(quote (define add1 (lambda (y) (+ x y))))", env)
-	evalString("(eval (quote (define add1 (lambda (y) (+ x y)))))", env)
-	evalString("(define x 2.5)", env)
+	evalString("(lam (y) (+ x y))", env)
+	evalString("((lam (y) (+ x y)) 1)", env)
+	evalString("(quote (def add1 (lam (y) (+ x y))))", env)
+	evalString("(eval (quote (def add1 (lam (y) (+ x y)))))", env)
+	evalString("(def x 2.5)", env)
 	evalString("(add1 x)", env)
-	evalString("(define add3 (lambda (x y z) (+ x y z)))", env)
+	evalString("(def add3 (lam (x y z) (+ x y z)))", env)
 	evalString("(add3 1 2 3)", env)
 	
-	evalString("(define fib (lambda (n) (if (eq? n 0) 1 (if (eq? n 1) 1 (+ (fib (- n 1)) (fib (- n 2)))))))", env)
+	evalString("(def fib (lam (n) (if (eq? n 0) 1 (if (eq? n 1) 1 (+ (fib (- n 1)) (fib (- n 2)))))))", env)
 	evalString("(fib 1)", env)
 	evalString("(fib 2)", env)
 	evalString("(fib 3)", env)
 	evalString("(fib 4)", env)
 	evalString("(fib 5)", env)
 	
-	evalString("(define fib1 (lambda (n) (if (eq? n 0) (cons 1 nil) (if (eq? n 1) (quote (1 1)) (cons (+ (car (fib1 (- n 1))) (car (cdr (fib1 (- n 1))))) (fib1 (- n 1)))))))", env)
+	evalString("(def fib1 (lam (n) (if (eq? n 0) (cons 1 nil) (if (eq? n 1) (quote (1 1)) (cons (+ (car (fib1 (- n 1))) (car (cdr (fib1 (- n 1))))) (fib1 (- n 1)))))))", env)
 	evalString("(fib1 5)", env)
 	
-	evalString("(define fib2 (lambda (n) (if (eq? n 0) (cons 1 nil) (if (eq? n 1) (quote (1 1)) (let (tmp (fib2 (- n 1))) (cons (+ (car tmp) (car (cdr tmp))) tmp)))))", env)
+	evalString("(def fib2 (lam (n) (if (eq? n 0) (cons 1 nil) (if (eq? n 1) (quote (1 1)) (let (tmp (fib2 (- n 1))) (cons (+ (car tmp) (car (cdr tmp))) tmp)))))", env)
 	evalString("(fib2 10)", env)
 
-	evalString("(define add4 (lambda (x) (lambda (y) (+ x y))))", env)
-	evalString("(define add5 (add4 5))", env)
-	evalString("(define add5 (add5 5))", env)
+	evalString("(def add4 (lam (x) (lam (y) (+ x y))))", env)
+	evalString("(def add5 (add4 5))", env)
+	evalString("(def add5 (add5 5))", env)
 
 
 	evalString("(car (lazy (quote (1 2 3)))", env)
 
 
-	evalString("(define lx (lazy (+ 1 2)))", env)
-	evalString("(define inffib (lambda (a b) (cons a (lazy (inffib b (+ a b))))))", env)
-	evalString("(define fibinf (inffib 1 1))", env)
+	evalString("(def lx (lazy (+ 1 2)))", env)
+	evalString("(def inffib (lam (a b) (cons a (lazy (inffib b (+ a b))))))", env)
+	evalString("(def fibinf (inffib 1 1))", env)
 	evalString("(cdr fibinf)", env)
 	evalString("(cdr (cdr fibinf))", env)
 	evalString("(cdr (cdr (cdr fibinf)))", env)
 	evalString("(cdr (cdr (cdr (cdr fibinf))))", env)
 	evalString("fibinf", env)
-	evalString("(define take (lambda (l n) (if (eq? n 0) nil (cons (car l) (take (cdr l) (- n 1))))))", env)
+	evalString("(def take (lam (l n) (if (eq? n 0) nil (cons (car l) (take (cdr l) (- n 1))))))", env)
 	evalString("(take (fib2 10) 3)", env)
 	evalString("(take (inffib 1 1) 10)", env)
 
