@@ -105,6 +105,9 @@ func main() {
 	evalString("(def take (lam (l n) (if (eq? n 0) nil (cons (car l) (take (cdr l) (- n 1))))))", env)
 	evalString("(take (fib2 10) 3)", env)
 	evalString("(take (inffib 1 1) 10)", env)
-
+	
+	evalString("(def comp (lam (f g) (lam (x) (f (g x)))))", env)
+	evalString("(def add4 (comp add1 add1))", env)
+	evalString("(add4 1)", env);
 	
 }

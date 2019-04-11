@@ -19,29 +19,15 @@ It's just a small imterpreter now, no marco, no coroution, and on goroution.
 
 Operator lazy is added, but I need to think deeper about which way it works better.
 
-Now, the lambda function works more like C functions:
 ```
-int x = 5;
-
-int f(int y) {
-  return x + y;
-}
-
-f(5); // 10
-
-x = 10;
-
-f(10); // 15
-```
-
-```
-(define x 5)
-(define f (lambda (x y) (+ x y)))
+(def x 5)
+(def f (lambda (x y) (+ x y)))
 (f 5) -- 10
-(define x 10)
+(def x 10)
 (f 5) -- 15
 ```
-On the other hand, if we stop user redefine variables, then its behavior will looks like Haskell.
+
+Here, ```def``` = ```def``` + ```set!```
 
 ## Todo list
   * operator lazy
