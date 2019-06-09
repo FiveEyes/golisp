@@ -1,4 +1,4 @@
-# xlisp
+# GoLisp
 Lisp interpreter in Go
 
 ## The idea
@@ -11,7 +11,7 @@ When I was learning Lisp, I was wondering if there exists a mini interpreter, su
 
 I never implement this idea, because it would be another lisp interpreter, not very interesting to me.
 
-During the spring break, I learnt a little bit of Golang. It also has some unique features, build-in multithreading and channels. Unlike coroution(continuation) in Lua, goroution is real thread and there is a scheduler hiding in runtime of Golang. It will be fun if we introduce goroution into lisp.
+During the spring break, I learned a little bit of Golang. It also has some unique features, build-in multithreading and channels. Unlike coroution(continuation) in Lua, goroution is real thread and there is a scheduler hiding in runtime of Golang. It will be fun if we introduce goroution into lisp.
 
 It's just a small imterpreter now, no marco, no coroution, and on goroution.
 
